@@ -3,13 +3,14 @@ from bs4 import BeautifulSoup
 import re
 
 
-wordlist = []
+
+wordlist = dict()
 
 session = requests.Session()
 
 
-
-def downloadTable(url):
+def downloadTable(url, title):
+    wordlist[title] = []
     response = session.get(url)
     html = response.content
     soup = BeautifulSoup(html, 'html.parser')
@@ -19,9 +20,9 @@ def downloadTable(url):
         word = []
         for wordObject in wordObjects:
             word.append(re.sub(r'\xa0', '', wordObject.text))
-        wordlist.append(word)
-        print(word)
-    print('-----------------------------------------------------------------------------')
+        wordlist[title].append(word)
+        #print(word)
+    #print('-----------------------------------------------------------------------------')
     
 
 def downloadWords(url):
@@ -30,9 +31,9 @@ def downloadWords(url):
     soup = BeautifulSoup(html, 'html.parser')
     lis = soup.findAll('li')
     for link in lis[23:99]:
-        downloadTable(link.find('a', href=True)['href'])
-
-
+        hz = link.find('a', href=True).text
+        downloadTable(link.find('a', href=True)['href'], link.find('a', href=True).text)
 
 
 downloadWords('https://langformula.ru/voc3000/')
+print(wordlist)
