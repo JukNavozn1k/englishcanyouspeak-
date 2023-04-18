@@ -8,12 +8,15 @@ def resize_font(event):
     font_size = int(((1/3750)*width*height))
     # Print the window size
     print(f'Window size: {width} x {height} | fsize =>  {font_size}')
-    
+
     if font_size > 24: font_size = 24  # LIMIT MAX FONT SIZE
     elif font_size < 12: font_size = 12
+    
     else:
+
         font = ('Arial',font_size)
-        label.config(font=font)
+        word_lbl.config(font=font)
+        enter_lbl.config(font=font)
         text_box.config(font=font)
         answer_button.config(font=font)
         translate_button.config(font=font)
@@ -35,31 +38,31 @@ root.geometry("400x150")
 
 # Set minimum and maximum window size
 root.minsize(300, 150)
-root.maxsize(500, 300)
+#root.maxsize(500, 300)
 
 
 font = ("Arial",16)
 
 
 # Create label with larger font and place in grid
-label = tk.Label(root, text="<current word here>", font=font)
-label.grid(row=0, column=1,sticky='ew')
+word_lbl = tk.Label(root, text="<current word here>", font=font)
+word_lbl.grid(row=0, column=1,sticky='ew')
 
 
 # Create label with larger font and place in grid
-label = tk.Label(root, text="Enter word:", font=font)
-label.grid(row=1, column=0,sticky='EW')
+enter_lbl = tk.Label(root, text="Enter word:", font=font)
+enter_lbl.grid(row=1, column=0,sticky='EW')
 
 # Create text box with larger font and place in grid
 text_box = tk.Entry(root, font=font)
 text_box.grid(row=1, column=1,sticky='EW')
 
 # Create "Plug In" button and place in grid
-answer_button = tk.Button(root, text="Answer", command=ans_btn,font=font,width=10)
+answer_button = tk.Button(root, text="Answer", command=ans_btn,font=font)
 answer_button.grid(row=2, column=0,sticky='NSEW')
 
 # Create "Plug Out" button and place in grid
-translate_button = tk.Button(root, text="Translate", command=transl_btn,font=font,width=10)
+translate_button = tk.Button(root, text="Translate", command=transl_btn,font=font)
 translate_button.grid(row=2, column=1,sticky='NSEW')
 
 
