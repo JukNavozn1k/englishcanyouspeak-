@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from voice_generator import * 
 def resize_font(event):
     global font,root
         # Get the window size
@@ -7,7 +7,7 @@ def resize_font(event):
     height = root.winfo_height()
     font_size = int(((1/3750)*width*height))
     # Print the window size
-    print(f'Window size: {width} x {height} | fsize =>  {font_size}')
+    #print(f'Window size: {width} x {height} | fsize =>  {font_size}')
 
     if font_size > 24: font_size = 24  # LIMIT MAX FONT SIZE
     elif font_size < 12: font_size = 12
@@ -20,6 +20,7 @@ def resize_font(event):
         text_box.config(font=font)
         answer_button.config(font=font)
         translate_button.config(font=font)
+        play_button.config(font=font)
    
 
 def ans_btn():
@@ -29,7 +30,9 @@ def ans_btn():
 def transl_btn():
     # Function to execute when "Plug Out" button is clicked
     print("Plugged Out")
-
+def play_btn():
+    text = text_box.get()
+    if len(text) >  0:  ENplay_text(text)
 # Create main window
 root = tk.Tk()
 root.title("englishcanyouspeak?")
@@ -66,16 +69,20 @@ translate_button = tk.Button(root, text="Translate", command=transl_btn,font=fon
 translate_button.grid(row=2, column=1,sticky='NSEW')
 
 
+play_button = tk.Button(root, text="Play sound", command=play_btn,font=font)
+play_button.grid(row=2, column=2,sticky='NSEW')
+
+
 
 # Configure the last row to have a non-zero weight
 root.grid_rowconfigure(2, weight=1)
 
 # Configure the first column to have a non-zero weight
-root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(1, weight=1)
 
 
 
 
-root.bind('<Configure>', resize_font)
+root.bind('<Configure>', resize_font) 
 # Start main loop
 root.mainloop()
