@@ -5,9 +5,10 @@ def resize_font(event):
         # Get the window size
     width = root.winfo_width()
     height = root.winfo_height()
+    font_size = int(((1/3750)*width*height))
     # Print the window size
-    print(f'Window size: {width} x {height}')
-    font_size = int(((1/5000)*width*height))
+    print(f'Window size: {width} x {height} | fsize =>  {font_size}')
+    
     if font_size > 24: font_size = 24  # LIMIT MAX FONT SIZE
     elif font_size < 12: font_size = 12
     else:
