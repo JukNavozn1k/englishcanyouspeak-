@@ -1,0 +1,5 @@
+    font = ('Arial',font_size)
+        label.config(font=font)
+        text_box.config(font=font)
+        answer_button.config(font=font)
+        translate_button.config(font=font)
