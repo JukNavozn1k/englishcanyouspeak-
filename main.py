@@ -46,24 +46,6 @@ def new_word():
     else: print('select themes')
    
 def ans_btn():
-    global idx,curr_lang,theme_idx
-    # => сделать ебаную проврку на корректность
-    word = text_box.get()
-    
-    if len(selected_themes) > 0 :
-        if curr_lang == 0:
-           if re.search(rf"\b{word}\b", data[selected_themes[randint(0,len(selected_themes)-1)]][idx][2]):
-                print(f"'{word}' found as a whole word in the string.")
-           else:
-                print(f"'{word}' not found as a whole word in the string.")
-        else:
-            flag = True
-            for i in data[selected_themes[randint(0,len(selected_themes)-1)]]:
-                if re.search(rf"\b{word}\b", data[selected_themes[randint(0,len(selected_themes)-1)]][idx][0]):
-                    print(f"'{word}' found as a whole word in the string.")
-                    flag = False
-                    break
-            if flag: print(f"'{word}' not found as a whole word in the string.")
     new_word()
     pass
 
