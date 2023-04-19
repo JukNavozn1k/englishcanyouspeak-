@@ -3,6 +3,8 @@ from voice_generator import *
 from DataLoad import *
 import os
 from random import randint
+import re
+
 # функция, которая масштабирует шрифт, когда изменяются размеры окна
 def resize_font(event):
     global font,root
@@ -31,7 +33,7 @@ def get_selection():
     return selection
 # функция, которая возвращает следующее случайное слово
 def new_word():
-    global idx,curr_lang,theme_idx
+    global idx,curr_lang,theme_idx,selected_themes
     # data[selected_themes[randint(0,len(selected_themes)-1)]][idx][curr_lang]
     selected_themes = get_selection()
     if len(selected_themes) > 0:
@@ -40,11 +42,28 @@ def new_word():
         idx = randint(0,len(words)-1)
         curr_lang = [0,2][randint(0,1)]
         word_lbl.config(text=f'{words[idx][curr_lang]}')
+        theme_lbl.config(text=f"Тема: {selected_themes[theme_idx]}")
     else: print('select themes')
    
 def ans_btn():
-    
+    global idx,curr_lang,theme_idx
     # => сделать ебаную проврку на корректность
+    word = text_box.get()
+    
+    if len(selected_themes) > 0 :
+        if curr_lang == 0:
+           if re.search(rf"\b{word}\b", data[selected_themes[randint(0,len(selected_themes)-1)]][idx][2]):
+                print(f"'{word}' found as a whole word in the string.")
+           else:
+                print(f"'{word}' not found as a whole word in the string.")
+        else:
+            flag = True
+            for i in data[selected_themes[randint(0,len(selected_themes)-1)]]:
+                if re.search(rf"\b{word}\b", data[selected_themes[randint(0,len(selected_themes)-1)]][idx][0]):
+                    print(f"'{word}' found as a whole word in the string.")
+                    flag = False
+                    break
+            if flag: print(f"'{word}' not found as a whole word in the string.")
     new_word()
     pass
 
@@ -98,9 +117,11 @@ theme_idx = randint(0,len(selected_themes)-1)
 word_lbl = tk.Label(root, text=f'{data[selected_themes[theme_idx]][idx][curr_lang]}', font=font,width=30)
 word_lbl.grid(row=2, column=0,sticky='ew')
 
-enter_lbl = tk.Label(root, text="Enter word:", font=font)
+enter_lbl = tk.Label(root, text=f"Enter word:", font=font)
 enter_lbl.grid(row=1, column=0,sticky='EW')
 
+theme_lbl = tk.Label(root, text=f"Тема: {selected_themes[theme_idx]}", font=font)
+theme_lbl.grid(row=0, column=1,sticky='EW')
 
 text_box = tk.Entry(root, font=font,width=30)
 text_box.grid(row=1, column=1,sticky='EW')
