@@ -32,12 +32,13 @@ def new_word():
 def ans_btn():
     # => сделать ебаную проврку на корректность
     new_word()
-    global words
 
     pass
 def transl_btn():
-    # Function to execute when "Plug Out" button is clicked
-    print("Plugged Out")
+    global idx,curr_lang
+    text_box.delete(0, tk.END)
+    if curr_lang == 0: text_box.insert(0,words[idx][2])
+    else: text_box.insert(0,words[idx][0])
 def play_btn():
     global curr_lang
     text = word_lbl.cget("text")
@@ -104,16 +105,16 @@ play_button.grid(row=2, column=2,sticky='NSEW')
 
 
 # Configure the last row to have a non-zero weight
-root.grid_rowconfigure(2, weight=1)
+#root.grid_rowconfigure(2, weight=1)
 
 # Configure the first column to have a non-zero weight
-root.grid_columnconfigure(1, weight=1)
+#root.grid_columnconfigure(1, weight=1)
 
 
 
 
 
-root.bind('<Configure>', resize_font) 
+#root.bind('<Configure>', resize_font) 
 # Start main loop
 
 
