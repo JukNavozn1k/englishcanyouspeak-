@@ -1,5 +1,8 @@
 import tkinter as tk
 from voice_generator import * 
+from DataLoad import *
+import os
+from random import randint
 def resize_font(event):
     global font,root
         # Get the window size
@@ -10,10 +13,8 @@ def resize_font(event):
     #print(f'Window size: {width} x {height} | fsize =>  {font_size}')
 
     if font_size > 24: font_size = 24  # LIMIT MAX FONT SIZE
-    elif font_size < 12: font_size = 12
-    
+    elif font_size < 12: font_size = 12   
     else:
-
         font = ('Arial',font_size)
         word_lbl.config(font=font)
         enter_lbl.config(font=font)
@@ -22,17 +23,31 @@ def resize_font(event):
         translate_button.config(font=font)
         play_button.config(font=font)
    
-
+def new_word():
+    global idx,curr_lang
+    idx = randint(0,len(words)-1)
+    curr_lang = [0,2][randint(0,1)]
+    word_lbl.config(text=f'{words[idx][curr_lang]}')
+   
 def ans_btn():
-    # Function to execuvte when "Plug In" button is clicked
-    print("Plugged In")
+    # => сделать ебаную проврку на корректность
+    new_word()
+    global words
 
+    pass
 def transl_btn():
     # Function to execute when "Plug Out" button is clicked
     print("Plugged Out")
 def play_btn():
-    text = text_box.get()
-    if len(text) >  0:  ENplay_text(text)
+    global curr_lang
+    text = word_lbl.cget("text")
+    if curr_lang == 0:
+        text = "The word is : " + text
+        if len(text) >  0:  ENplay_text(text)
+    else:
+        text = "Текущее слово : " + text
+        if len(text) >  0:  RUplay_text(text)
+
 # Create main window
 root = tk.Tk()
 root.title("englishcanyouspeak?")
@@ -45,10 +60,24 @@ root.minsize(300, 150)
 
 
 font = ("Arial",16)
+# загрузка слов с сервера, в случае их отсутствия
+if not os.path.exists('words.json'):
+    print('Data file not founc =( ')
+    print('Starting download data...')
+    get_words()
 
 
+data = load_words()
+words = None
+
+print('Words loaded!')
+for key in data:
+    words = data[key]
+    break
+idx = randint(0,len(words)-1)
+curr_lang = [0,2][randint(0,1)]
 # Create label with larger font and place in grid
-word_lbl = tk.Label(root, text="<current word here>", font=font)
+word_lbl = tk.Label(root, text=f'{words[idx][curr_lang]}', font=font,width=13)
 word_lbl.grid(row=0, column=1,sticky='ew')
 
 
@@ -83,6 +112,9 @@ root.grid_columnconfigure(1, weight=1)
 
 
 
+
 root.bind('<Configure>', resize_font) 
 # Start main loop
+
+
 root.mainloop()

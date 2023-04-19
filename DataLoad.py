@@ -4,6 +4,7 @@ import re
 import json
 
 
+
 wordlist = dict()
 
 session = requests.Session()
@@ -36,7 +37,7 @@ def downloadWords(url,out=0):
 
 def get_words(out=0):
 
-    downloadWords('https://langformula.ru/voc3000/',out=1)
+    downloadWords('https://langformula.ru/voc3000/',out)
     #print(wordlist)
 
     with open("words.json", "w") as outfile:
