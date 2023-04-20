@@ -46,7 +46,12 @@ def new_word():
     else: print('select themes')
    
 def ans_btn():
-    new_word()
+    if len (selected_themes) > 0 :
+       # data[selected_themes[theme_idx]][idx][0]
+       flag = False
+       if curr_lang == 0 and text_box.get() in data[selected_themes[theme_idx]][idx][2] : flag = True
+       elif curr_lang == 2 and text_box.get() in  data[selected_themes[theme_idx]][idx][0]: flag = True
+       if flag: new_word()
     pass
 
 
