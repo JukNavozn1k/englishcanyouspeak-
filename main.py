@@ -4,7 +4,7 @@ from DataLoad import *
 import os
 from random import randint
 import re
-
+from getSyns import *
 # функция, которая масштабирует шрифт, когда изменяются размеры окна
 def resize_font(event):
     global font,root
@@ -57,8 +57,14 @@ def ans_btn():
     if len (selected_themes) > 0 :
        # data[selected_themes[theme_idx]][idx][0]
        flag = False
-       if curr_lang == 0 and text_box.get() in data[selected_themes[theme_idx]][idx][2] : flag = True
-       elif curr_lang == 2 and text_box.get() in  data[selected_themes[theme_idx]][idx][0]: flag = True
+       if curr_lang == 0 :
+        # data[selected_themes[theme_idx]][idx][0]
+        tmp_word = trs(text_box.get(),0)
+        if tmp_word in ENget_syns(data[selected_themes[theme_idx]][idx][0]): flag = True
+       
+       elif curr_lang == 2 : 
+           if text_box.get() in ENget_syns(data[selected_themes[theme_idx]][idx][0]):
+                flag = True
        if flag: 
            text_box.delete(0, tk.END)
            new_word()
