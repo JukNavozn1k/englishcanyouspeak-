@@ -16,7 +16,7 @@ def ENget_syns(word):
 
     # remove duplicates and print the synonyms
     synonyms = list(set(synonyms))
-    print(synonyms)
+   # print(synonyms)
     return synonyms
 
 def trs(word,flag=0): # flag 0 -> ru to en else en to ru
