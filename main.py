@@ -25,11 +25,14 @@ def resize_font(event):
         translate_button.config(font=font)
         play_button.config(font=font)
         listbox.config(font=font)
+        update_button.config(font=font)
 
 def upd_words():
     global selected_themes
     tmp =  get_selection()
-    if len(tmp) > 0: selected_themes = tmp
+    if len(tmp) > 0: 
+        selected_themes = tmp
+        new_word()
     else: print('Please, choose some themes')
 
 # функция, которая возвращает список выбранных элементов из listbox
@@ -57,7 +60,6 @@ def ans_btn():
        if curr_lang == 0 and text_box.get() in data[selected_themes[theme_idx]][idx][2] : flag = True
        elif curr_lang == 2 and text_box.get() in  data[selected_themes[theme_idx]][idx][0]: flag = True
        if flag: new_word()
-    pass
 
 
 def transl_btn():
