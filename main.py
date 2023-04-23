@@ -12,7 +12,7 @@ def resize_font(event):
     width = root.winfo_width()
     height = root.winfo_height()
     font_size = int(((1/30000)*width*height))
-    #print(f'Window size: {width} x {height} | fsize =>  {font_size}')
+    #print(f'Window size: {width} x {height} | fsize =>  {font_size}') 
     # Ограничения на максимальный и минимальный размер шрифта
     if font_size > 20: font_size = 20
     elif font_size < 15: font_size = 15
@@ -48,7 +48,7 @@ def new_word():
         theme_idx = randint(0,len(selected_themes)-1) 
         words = data[selected_themes[theme_idx]]
         idx = randint(0,len(words)-1)
-        curr_lang = [0,2][randint(0,1)]
+        curr_lang = [0,2][randint(0,1)] 
         word_lbl.config(text=f'{words[idx][curr_lang]}')
         theme_lbl.config(text=f"Тема: {selected_themes[theme_idx]}")
     else: print('select themes')
@@ -59,7 +59,9 @@ def ans_btn():
        flag = False
        if curr_lang == 0 and text_box.get() in data[selected_themes[theme_idx]][idx][2] : flag = True
        elif curr_lang == 2 and text_box.get() in  data[selected_themes[theme_idx]][idx][0]: flag = True
-       if flag: new_word()
+       if flag: 
+           text_box.delete(0, tk.END)
+           new_word()
 
 
 def transl_btn():
