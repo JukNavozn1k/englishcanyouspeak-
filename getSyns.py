@@ -1,12 +1,13 @@
 import nltk
 from nltk.corpus import wordnet
 from translate import Translator
-
+from googletrans import Translator # pip install googletrans==4.0.0-rc1
 from wiki_ru_wordnet import WikiWordnet
 
 
 nltk.download('wordnet') # база английских слов
 
+translator = Translator()
 def contain(w,T):
     flag = False
     for t in T:
@@ -25,7 +26,16 @@ def ENget_syns(word):
     print(word,synonyms)
     return synonyms
 
-def trs(word,flag=0): # flag 0 -> ru to en else en to ru
-    if flag == 0: translator = Translator(from_lang='ru', to_lang='en')
-    else: translator = Translator(from_lang='en', to_lang='ru')
-    return translator.translate(word)
+def trs(text): # flag 0 -> ru to en else en to ru
+    
+    # Detect language of the text
+    detected_lang = translator.detect(text).lang
+
+    # Translate the text to English
+    translation = translator.translate(text, src=detected_lang, dest='en')
+
+    return translation.text
+
+
+
+

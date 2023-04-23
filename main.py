@@ -62,7 +62,7 @@ def ans_btn():
         # data[selected_themes[theme_idx]][idx][0]
         if  text_box.get() in data[selected_themes[theme_idx]][idx][2]: flag = True
         else:
-            tmp_word = trs(text_box.get(),0)
+            tmp_word = trs(text_box.get())
             if tmp_word in data[selected_themes[theme_idx]][idx][0]: flag = True
             elif contain(data[selected_themes[theme_idx]][idx][0],ENget_syns(tmp_word)): flag = True
        elif curr_lang == 2 : 
