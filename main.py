@@ -27,6 +27,7 @@ def resize_font(event):
         listbox.config(font=font)
         update_button.config(font=font)
 
+
 def upd_words():
     global selected_themes
     tmp =  get_selection()
@@ -59,12 +60,15 @@ def ans_btn():
        flag = False
        if curr_lang == 0 :
         # data[selected_themes[theme_idx]][idx][0]
-        tmp_word = trs(text_box.get(),0)
-        if tmp_word in ENget_syns(data[selected_themes[theme_idx]][idx][0]): flag = True
-       
+        if  text_box.get() in data[selected_themes[theme_idx]][idx][2]: flag = True
+        else:
+            tmp_word = trs(text_box.get(),0)
+            if tmp_word in data[selected_themes[theme_idx]][idx][0]: flag = True
+            elif contain(data[selected_themes[theme_idx]][idx][0],ENget_syns(tmp_word)): flag = True
        elif curr_lang == 2 : 
-           if text_box.get() in ENget_syns(data[selected_themes[theme_idx]][idx][0]):
-                flag = True
+           if text_box.get() in data[selected_themes[theme_idx]][idx][0]: flag = True
+           elif contain(data[selected_themes[theme_idx]][idx][0],ENget_syns(text_box.get())): flag = True
+                
        if flag: 
            text_box.delete(0, tk.END)
            new_word()
