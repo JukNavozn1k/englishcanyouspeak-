@@ -26,6 +26,11 @@ def resize_font(event):
         play_button.config(font=font)
         listbox.config(font=font)
 
+def upd_words():
+    global selected_themes
+    tmp =  get_selection()
+    if len(tmp) > 0: selected_themes = tmp
+    else: print('Please, choose some themes')
 
 # функция, которая возвращает список выбранных элементов из listbox
 def get_selection():
@@ -35,7 +40,7 @@ def get_selection():
 def new_word():
     global idx,curr_lang,theme_idx,selected_themes
     # data[selected_themes[randint(0,len(selected_themes)-1)]][idx][curr_lang]
-    selected_themes = get_selection()
+    
     if len(selected_themes) > 0:
         theme_idx = randint(0,len(selected_themes)-1) 
         words = data[selected_themes[theme_idx]]
@@ -80,7 +85,7 @@ root.minsize(width=900,height=200) # минимальные размеры ок�
 root.maxsize(height=500) # максимальные размеры окна
 
 
-font = ("Arial",16) # начальный шрифт
+font = ("Arial",16) # начальный шрифт   
 
 
 # загрузка слов с сервера, в случае их отсутствия
@@ -124,6 +129,11 @@ translate_button.grid(row=2, column=2,sticky='NSEW')
 
 play_button = tk.Button(root, text="Play sound", command=play_btn,font=font)
 play_button.grid(row=2, column=3,sticky='NSEW')
+
+
+
+update_button = tk.Button(root, text="Update Words", command=upd_words,font=font)
+update_button.grid(row=2, column=4,sticky='NSEW')
 
 root.bind('<Configure>', resize_font)  # отслеживание изменения размера окна
 # Start main loop
